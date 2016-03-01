@@ -1,9 +1,8 @@
 require 'libusb'
-require 'pathname'
 
 class TagReader
   # TODO: no depend on nfcpy
-  NFCPY_PREFIX = "#{Pathname.pwd}/nfcpy/0.9"
+  NFCPY_PREFIX = "#{File.expand_path(File.dirname(__FILE__))}/nfcpy/0.9"
 
   # target nfc reader is only '054c:02e1 Sony Corp. FeliCa S330 [PaSoRi]'
   VENDER = '054c'.to_i(16)
