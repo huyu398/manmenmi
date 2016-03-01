@@ -3,7 +3,7 @@ require 'logger'
 require 'yaml'
 
 MANMENMI_ROOT = File.expand_path(File.dirname(__FILE__))
-AUDIO_PREFIX = "#{MANMENMI_ROOT}/voice/"
+AUDIO_PREFIX = "#{MANMENMI_ROOT}/voice"
 NFCPY_PREFIX = "#{MANMENMI_ROOT}/nfcpy/0.9"
 LOG_PREFIX = "#{MANMENMI_ROOT}/log"
 
