@@ -1,3 +1,3 @@
 require 'daemons'
 
-Daemons.run('./scraping.rb')
+Daemons.run('./manmenmi.rb')
