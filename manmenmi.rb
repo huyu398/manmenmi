@@ -2,6 +2,8 @@ require 'mechanize'
 require 'logger'
 require 'yaml'
 
+require_relative 'tag_reader'
+
 MANMENMI_ROOT = File.expand_path(File.dirname(__FILE__))
 AUDIO_PREFIX = "#{MANMENMI_ROOT}/voice"
 NFCPY_PREFIX = "#{MANMENMI_ROOT}/nfcpy/0.9"
@@ -15,14 +17,14 @@ logger = Logger.new("#{LOG_PREFIX}/test.log")
 logger.level = Logger::INFO
 logger.info('Start MANMENMIIIIII!!!!!!!')
 
+nfc = TagReader.new
+
 loop do
   begin
     logger.info("Start polling")
-    cmd_out = `python #{NFCPY_PREFIX}/examples/tagtool.py show 2>/dev/null`
-    raise "L:#{__LINE__}# Can't read a nfc tag" if cmd_out.empty?
+    tag = nfc.read rescue (raise "L:#{__LINE__}# Can't read a nfc tag")
     # manmenmi!!!
     `mplayer #{AUDIO_PREFIX}/comeonbaby.wav 2>/dev/null`
-    tag = cmd_out.match(/IDm?=([\da-fA-F]*)/)[1]
     logger.info("Read a tag of uid:#{tag}")
 
     user = {}
