@@ -46,7 +46,7 @@ loop do
 
     # arrived or left
     timecard_form = user_page.forms_with(method: 'POST')[2]
-    arrive_timetable = (user_page / 'html/body/div/div/table/tr/td/table/tr/#cb7-portal-left/#cb7-portlet-frame-41/#cb7-portlet-41/#cb7-portlet-body-41/form/table/tr/td[1]')[0]
+    arrive_timetable = (user_page / 'html/body/div/div/div/table/tr/td/table/tr/#cb7-portal-left/#cb7-portlet-frame-41/#cb7-portlet-41/#cb7-portlet-body-41/form/table/tr/td[1]')[0]
     arrive_time = Time.parse(arrive_timetable.children[2].text)
     login_time = Time.now
 
