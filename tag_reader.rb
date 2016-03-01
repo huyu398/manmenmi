@@ -24,6 +24,14 @@ class TagReader
     eval(@reader_method)
   end
 
+  def force_real
+    @reader_method = '_read_by_real_reader'
+  end
+
+  def force_virtual
+    @reader_method = '_read_by_virtual_reader'
+  end
+
   # use when target nfc reader connect
   def _read_by_real_reader
     # TODO: no depend on nfcpy
