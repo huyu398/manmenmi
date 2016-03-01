@@ -4,7 +4,7 @@ require 'yaml'
 
 MANMENMI_ROOT = File.expand_path(File.dirname(__FILE__))
 AUDIO_PREFIX = "#{MANMENMI_ROOT}/voice/"
-NFCPY_PREFIX = "#{MANMENMI_ROOT}/nfc/nfcpy-0.10.2"
+NFCPY_PREFIX = "#{MANMENMI_ROOT}/nfcpy/0.9"
 LOG_PREFIX = "#{MANMENMI_ROOT}/log"
 
 config = YAML.load(File.read("#{MANMENMI_ROOT}/config.yml"))
