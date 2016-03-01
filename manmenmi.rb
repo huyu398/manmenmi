@@ -22,7 +22,7 @@ loop do
     raise "L:#{__LINE__}# Can't read a nfc tag" if cmd_out.empty?
     # manmenmi!!!
     `mplayer #{AUDIO_PREFIX}/comeonbaby.wav 2>/dev/null`
-    tag = cmd_out.match(/ID=([\dA-F]*)/)[1]
+    tag = cmd_out.match(/IDm?=([\da-fA-F]*)/)[1]
     logger.info("Read a tag of uid:#{tag}")
 
     user = {}
