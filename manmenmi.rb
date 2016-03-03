@@ -3,6 +3,7 @@ require 'logger'
 require 'yaml'
 
 require_relative 'tag_reader'
+require_relative 'errors'
 
 MANMENMI_ROOT = File.expand_path(File.dirname(__FILE__))
 AUDIO_PREFIX = "#{MANMENMI_ROOT}/voice"
@@ -22,7 +23,7 @@ nfc = TagReader.new
 loop do
   begin
     logger.info("Start polling")
-    tag = nfc.read rescue (raise "L:#{__LINE__}# Can't read a nfc tag")
+    tag = nfc.read rescue (raise Errors::NFCReadError.new("Can't read a nfc tag", __LINE__))
     # manmenmi!!!
     `mplayer #{AUDIO_PREFIX}/comeonbaby.wav 2>/dev/null`
     logger.info("Read a tag of uid:#{tag}")
@@ -33,7 +34,7 @@ loop do
         user = _user
       end
     end
-    raise "L:#{__LINE__}# No user with uid:#{tag}" if user.empty?
+    raise Errors::UserRecognizeError.new("No user with uid:#{tag}", __LINE__) if user.empty?
     logger.info("Recognize a user with id:#{user['id']} name:#{user['name']}")
 
     agent = Mechanize.new
@@ -43,7 +44,7 @@ loop do
     login_form._ID = user['id']
     login_form.Password = user['password']
     user_page = agent.submit(login_form)
-    raise "L:#{__LINE__}# invalid password for user:#{user['name']}" if user_page.title.match(/エラー/)
+    raise Errors::LoginError.new("Invalid password for user:#{user['name']}", __LINE__) if user_page.title.match(/エラー/)
     logger.info('Success login')
 
     # arrived or left
@@ -65,7 +66,7 @@ loop do
         timecard_form.click_button
         logger.info("#{user['name']} left office")
       else
-        raise "L:#{__LINE__}# !!! Unexpeced error !!!"
+        raise Errors::UnexpectedError.new("!!! Unexpeced error !!!", __LINE__)
       end
     end
   rescue => e
