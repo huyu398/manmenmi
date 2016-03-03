@@ -12,5 +12,5 @@ module Errors
   class NFCReadError < BaseError; end
   class UserRecognizeError < BaseError; end
   class LoginError < BaseError; end
-  class UnexpecedError < BaseError; end
+  class UnexpectedError < BaseError; end
 end
